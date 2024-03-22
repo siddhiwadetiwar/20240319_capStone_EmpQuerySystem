@@ -2,6 +2,8 @@
 
 // External dependencies
 
+const nodemailer = require('nodemailer');
+
 // Import bcrypt for password hashing
 const bcrypt = require("bcrypt");
 // Import jsonwebtoken for token generation
@@ -9,8 +11,12 @@ const jwt = require("jsonwebtoken");
 // Load environment variables
 require("dotenv").config();
 
+
+const { v4: uuidv4 } = require('uuid');
+
 // Internal dependencies
 const User = require("../models/user");
+
 const {
   usernameValidator,
   emailValidator,
@@ -156,5 +162,86 @@ async function signin(req, res) {
   }
 }
 
+// // Function to generate a unique reset token
+// function generateResetToken() {
+//   return uuidv4(); // Generate a version 4 UUID as the reset token
+// }
+
+// /** function to handle forgot password request
+//  * @param {Object} req - request object
+//  * @param {Object} res - response object
+//  */
+// async function forgotPassword(req, res) {
+//   const  email  = req.body.email;
+
+//   // Validate the user input
+//   if (!emailValidator(email)) {
+//     return res.status(400).json({ message: "Invalid email" });
+//   }
+
+//   try {
+//     // Check if the user exists
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(400).json({ message: "User not found" });
+//     }
+
+//     // Generate a unique token for password reset (e.g., using uuid or any other method)
+//     const resetToken = generateResetToken();
+
+//     // Update the user document with the reset token and expiry date
+//     user.resetToken = resetToken;
+//     user.resetTokenExpiry = Date.now() + 3600000; // Token expiry in 1 hour
+//     await user.save();
+
+//     const transporter = nodemailer.createTransport({
+//       host: 'smtp.gmail.com',
+//       port: 465,
+//       secure: true,
+//       auth: {
+//         user: '@gmail.com',
+//         pass: 'your-email-password',
+//       },
+//       debug: true, // Enable debug mode
+//     });
+    
+//     const mailOptions = {
+//       from: 'wadetiwarsd@rknec.edu',
+//       to: email,
+//       subject: 'Password Reset',
+//       html: `<p>Dear user,</p>
+//              <p>Please click <a href="http://your-app/reset-password/${resetToken}">here</a> to reset your password.</p>`
+//     };
+
+//     transporter.sendMail(mailOptions, (error, info) => {
+//       if (error) {
+//         console.error('Error sending reset email:', error);
+//         return res.status(500).json({ message: 'Failed to send password reset email' });
+//       }
+//       console.log('Password reset email sent:', info.response);
+//       res.status(200).json({ message: 'Password reset email sent successfully' });
+//     });
+//   } catch (error) {
+//     console.error('Error in forgotPassword:', error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// }
+
+/** Controller for logging out a user
+ * @param {Object} req - request object
+ * @param {Object} res - response object
+ */
+async function logout(req, res) {
+  // Clear the user's session or access token
+  // For example, if using sessions:
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+    res.status(200).json({ message: 'Logged out successfully' });
+  });
+}
+
 // Export the signup and signin functions for use in other files
-module.exports = { signup, signin };
+module.exports = { signup, signin, logout};

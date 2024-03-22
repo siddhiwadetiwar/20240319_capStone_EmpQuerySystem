@@ -4,6 +4,7 @@ const User = require("../models/user");
 const mongoose = require("mongoose");
 const user = require("../models/user");
 
+
 /** Middleware helper function to verify JWT token
  * @param {Object} req - request object
  * @param {Object} res - response object
@@ -57,5 +58,7 @@ async function getUserMiddleware(req, res, next) {
   req.User = User;
   next();
 }
+
+
 
 module.exports = { verifyJwt, getUserFromId, getUserMiddleware };

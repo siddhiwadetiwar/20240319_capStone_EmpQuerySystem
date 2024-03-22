@@ -47,6 +47,13 @@ const postCollectionSchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId],
     default: [],
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    unique: true,
+    // Reference to the user model
+    ref: "user", 
+  },
 });
 
 // Create and export the PostCollection model

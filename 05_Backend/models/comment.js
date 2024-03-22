@@ -50,6 +50,22 @@ const commentSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  upvotesCount: { 
+    type: Number, 
+    default: 0 
+  },
+  upvotedUsers: { 
+    type: [mongoose.Schema.Types.ObjectId], 
+    default: [] 
+  },
+  downvotesCount: { 
+    type: Number, 
+    default: 0 
+  },
+  downvotedUsers: { 
+    type: [mongoose.Schema.Types.ObjectId], 
+    default: [] 
+  },
 });
 
 // Create and export the Comment model

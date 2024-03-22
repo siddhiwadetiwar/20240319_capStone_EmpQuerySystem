@@ -6,14 +6,14 @@ const { connectToDatabase } = require("./database/db");
 
 const authRouter = require("./router/authRouter");
 const postRouter = require('./router/postRouter');
-
+const commentRouter = require('./router/commentRouter');
 
 app.use(bodyParser.json());
 
 // Routes
 app.use('/post', postRouter);
 app.use('/auth', authRouter);
-
+app.use('/comment', commentRouter);
 
 
 async function startServerAndDatabase() {

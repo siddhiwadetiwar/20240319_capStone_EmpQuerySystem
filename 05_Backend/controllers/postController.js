@@ -13,49 +13,9 @@ const {
   imagesValidator,
   upvotesCountValidator,
   downvotesCountValidator,
-  commentContentValidator,
   usernameValidator,
 } = require('../dependencies/validators/post')
 
-
-/** Controller for pinning a comment
- *  @param {Object} req - request object
- *  @param {Object} res - request object
- */
-const pinComment = async (req, res) => {
-  // Extracting userId from the authenticated user object
-  const { userId } = req.user._id;
-
-  // Extracting postId and commentId from request parameters
-  const { postId, commentId } = req.params;
-
-  console.log('UserID:', userId); // Log userId to check if it's correct
-  console.log('PostID:', postId); // Log postId to check if it's correct
-
-  try {
-    // Check if the user is the author of the post
-    const post = await PostCollection.findOne({ _id: postId, userId });
-    console.log('Post:', post); // Log the post to check its details
-    if (!post) {
-      return res.status(401).json({ message: 'Unauthorized - User is not the author of the post' });
-    }
-
-    // Check if the comment exists and is upvoted by the author
-    const comment = await Comment.findOne({ _id: commentId, userId });
-    if (!comment || comment.upvotesCount === 0) {
-      return res.status(400).json({ message: 'Invalid request - Comment not found or not upvoted' });
-    }
-
-    // Pin the comment by setting isPinned to true
-    comment.isPinned = true;
-    await comment.save();
-
-    return res.status(200).json({ message: 'Comment pinned successfully' });
-  } catch (error) {
-    console.error('Error pinning comment:', error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-};
 
 /** Controller for adding a post
  * @param {Object} req - request object
@@ -117,56 +77,6 @@ async function getAllPosts(req, res) {
   }
 }
 
-/** Controller for adding a comment to a post
- * @param {Object} req - request object
- * @param {Object} res - request object
- */
-async function addComment(req, res) {
-  // Extracting postId from the request
-  postId = [];
-
-  if (req.params.postId) {
-    postId = req.params.postId;
-  } else if (req.query.postId) {
-    postId = req.query.postId;
-  } else {
-    return res.status(400).json({ message: 'postId is required' });
-  }
-  const { commentContent } = req.body;
-  const userId = req.user._id; // Assuming user ID is available in req.user
-
-  // Validate comment content
-  if (!commentContentValidator(commentContent)) {
-    return res.status(400).json({ message: 'Invalid comment content' });
-  }
-
-  try {
-    // Check if the post exists
-    const post = await PostCollection.findById(postId, userId);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-
-    // Create a new comment
-    const comment = new Comment({
-      postId,
-      userId,
-      commentContent,
-    });
-
-    // Save the comment to the database
-    const savedComment = await comment.save();
-
-    // Update the post to include the comment
-    post.comments.push(savedComment._id);
-    await post.save();
-
-    return res.status(201).json({ comment: savedComment });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-}
 
 // async function getAllPostsByUsername(req, res) {
 //   try {
@@ -195,24 +105,25 @@ async function addComment(req, res) {
  * @param {Object} res - request object
  */
 async function getAllPostsByUsername(req, res) {
-  // Extract username from request body
-  const { username } = req.body;
-
-  // Validate the username
-  if (!usernameValidator(username)) {
-    return res.status(400).json({ message: 'Invalid username format' });
-  }
-
   try {
+    // Extract username from the request body or query parameters
+    const { username } = req.params; // Or req.query, depending on how you're sending the username
+    console.log('Received username:', username)
+    // Validate the username format if needed
+    if (!usernameValidator(username)) {
+      return res.status(400).json({ message: 'Invalid username format' });
+    }
+
     // Find the user based on the username
     const user = await User.findOne({ username });
+    console.log('Found user:', user); // Add this log statement
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
     // Find all posts of the user using their userId
     const posts = await PostCollection.find({ userId: user._id });
-
+    console.log('User posts:', posts); 
     // Return the posts as a JSON response
     return res.status(200).json({ posts });
   } catch (error) {
@@ -333,9 +244,7 @@ async function downvotePostAndGetCount(req, res) {
 }
 
 module.exports = {
-  pinComment,
   addPost,
-  addComment,
   getAllPosts,
   getAllPostsByUsername,
   getFilteredPosts,

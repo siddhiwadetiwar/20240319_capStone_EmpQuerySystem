@@ -70,14 +70,14 @@ function isAlphaNumeric(str) {
 }
 // Validator for username
 function usernameValidator(username) {
-  // Trim leading and trailing spaces from the username
-  const trimmedUsername = username.trim();
-
-  // Check if the trimmed username is alphanumeric and has a length between 3 and 20 characters
-  if (!isAlphaNumeric(trimmedUsername) || trimmedUsername.length < 3 || trimmedUsername.length > 20) {
-    return false;
+  // Check if the username is undefined, null, or an empty string
+  if (!username || typeof username !== 'string' || username.trim() === '') {
+    return false; // Invalid username format
   }
-  return true;
+
+  // Additional validation logic if needed
+
+  return true; // Valid username format
 }
 
 // Exporting the validator functions

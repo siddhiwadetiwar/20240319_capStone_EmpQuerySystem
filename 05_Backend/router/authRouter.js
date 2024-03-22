@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-// Controller
+// Import the auth controller
 const authController = require("../controllers/authController");
 
-// Routes
+// Route for user signup
 router.post("/signup", authController.signup);
+
+// Route for user signin
 router.post("/signin", authController.signin);
 
+// Route for resetting password
+router.post("/logout", authController.logout);
 
-
-// Exporting the router
+// Export the router
 module.exports = router;
