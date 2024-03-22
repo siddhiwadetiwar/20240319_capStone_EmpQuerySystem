@@ -11,13 +11,13 @@ const commentSchema = new mongoose.Schema({
 //     unique: true, 
 //   },
   // Post ID referencing the postCollection model
-  postId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    // Reference to the postCollection model
-    ref: "postCollection", 
-  },
-  // User ID referencing the Users model
+  // postId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   required: true,
+  //   // Reference to the postCollection model
+  //   ref: "postCollection", 
+  // },
+  // // User ID referencing the Users model
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

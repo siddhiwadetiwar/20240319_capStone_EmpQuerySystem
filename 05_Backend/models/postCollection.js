@@ -3,21 +3,7 @@ const mongoose = require("mongoose");
 
 // Define the schema for the PostCollection model
 const postCollectionSchema = new mongoose.Schema({
-  // Post ID
-//   postId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     required: true,
-//     // Each postId must be unique
-//     unique: true, 
-// },
-  // User ID referencing the Users model
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    // Reference the User model
-    ref: "user", 
-    unique: true,
-  },
+  
   // Array of strings for post content
   postContent: {
     // postContent is an array of strings

@@ -29,9 +29,13 @@ const pinComment = async (req, res) => {
   // Extracting postId and commentId from request parameters
   const { postId, commentId } = req.params;
 
+  console.log('UserID:', userId); // Log userId to check if it's correct
+  console.log('PostID:', postId); // Log postId to check if it's correct
+
   try {
     // Check if the user is the author of the post
-    const post = await PostCollection.findOne({ postId, userId });
+    const post = await PostCollection.findOne({ _id: postId, userId });
+    console.log('Post:', post); // Log the post to check its details
     if (!post) {
       return res.status(401).json({ message: 'Unauthorized - User is not the author of the post' });
     }
@@ -55,14 +59,14 @@ const pinComment = async (req, res) => {
 
 /** Controller for adding a post
  * @param {Object} req - request object
- * @param {Object} res - request object
+ * @param {Object} res - request objec
  */
 async function addPost(req, res) {
   // Extracting data from the request body
   const {
     postContent,
     postType,
-    images
+    images,
   } = req.body;
 
   // Creating a new post object
@@ -258,12 +262,6 @@ async function upvotePostAndGetCount(req, res) {
   const { postId } = req.params;
   const userId = req.user._id; // Assuming user ID is available in req.user after authentication
 
-  //  to validate upvotes count
-  if (!upvotesCountValidator(post.upvotesCount)) {
-    return res.status(400).json({ message: 'Invalid upvotes count' });
-  }
-
-
   try {
     // Check if the post exists
     const post = await PostCollection.findById(postId);
@@ -276,6 +274,10 @@ async function upvotePostAndGetCount(req, res) {
       return res.status(400).json({ message: 'User has already upvoted this post' });
     }
 
+    //  to validate upvotes count
+    if (!upvotesCountValidator(post.upvotesCount)) {
+      return res.status(400).json({ message: 'Invalid upvotes count' });
+    }
     // Increment the upvotesCount and add the user ID to the upvotedUsers array
     post.upvotesCount++;
     post.upvotedUsers.push(userId);
@@ -298,10 +300,7 @@ async function downvotePostAndGetCount(req, res) {
   const { postId } = req.params;
   const userId = req.user._id; // Assuming user ID is available in req.user after authentication
 
-  // to validate downvotes count
-  if (!downvotesCountValidator(post.downvotesCount)) {
-    return res.status(400).json({ message: 'Invalid downvotes count' });
-  }
+
 
   try {
     // Check if the post exists
@@ -313,6 +312,11 @@ async function downvotePostAndGetCount(req, res) {
     // Check if the user has already downvoted this post
     if (post.downvotedUsers.includes(userId)) {
       return res.status(400).json({ message: 'User has already downvoted this post' });
+    }
+
+    // to validate downvotes count
+    if (!downvotesCountValidator(post.downvotesCount)) {
+      return res.status(400).json({ message: 'Invalid downvotes count' });
     }
 
     // Increment the downvotesCount and add the user ID to the downvotedUsers array

@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const app = express();
 
 const { connectToDatabase } = require("./database/db");
 
 const authRouter = require("./router/authRouter");
 const postRouter = require('./router/postRouter');
 
-const app = express();
 
 app.use(bodyParser.json());
 
