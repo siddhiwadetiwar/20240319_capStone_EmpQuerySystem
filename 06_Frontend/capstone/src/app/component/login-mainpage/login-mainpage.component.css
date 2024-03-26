@@ -1,0 +1,305 @@
+.frame-child31,
+.welcome {
+  position: relative;
+  max-width: 100%;
+}
+.welcome {
+  width: 821px;
+  height: 71px;
+  display: inline-block;
+  flex-shrink: 0;
+  text-shadow: 1px 0 0#000, 0 1px 0#000, -1px 0 0#000, 0-1px 0#000;
+}
+.frame-child31 {
+  width: 919px;
+  height: 655px;
+  background-color: var(--color-gainsboro-100);
+  display: none;
+}
+.login1 {
+  margin: 0;
+  height: 67px;
+  flex: 1;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  text-shadow: 1px 0 0#000, 0 1px 0#000, -1px 0 0#000, 0-1px 0#000;
+  z-index: 1;
+}
+.login-wrapper {
+  width: 176px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 57px;
+  box-sizing: border-box;
+  font-size: var(--font-size-41xl);
+}
+.username1 {
+  height: 41px;
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+.username-wrapper {
+  width: 254px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-3xl);
+  box-sizing: border-box;
+}
+.frame-child32 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-31xl);
+  width: 535px;
+  height: 87px;
+  z-index: 1;
+}
+.enter-username1 {
+  position: absolute;
+  top: 23px;
+  left: 25px;
+  display: inline-block;
+  width: 432px;
+  height: 84px;
+  z-index: 2;
+}
+.vector-parent2 {
+  align-self: stretch;
+  height: 107px;
+  position: relative;
+  color: var(--color-darkgray);
+}
+.frame-parent21,
+.frame-wrapper10 {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frame-parent21 {
+  width: 535px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-smi);
+}
+.frame-wrapper10 {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 0 0 var(--padding-13xl);
+  box-sizing: border-box;
+}
+.password3 {
+  height: 41px;
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+.frame-input,
+.password-wrapper {
+  width: 248px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-lgi);
+  box-sizing: border-box;
+}
+.frame-input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--c1-j);
+  align-self: stretch;
+  height: 87px;
+  border-radius: var(--br-31xl);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25) inset;
+  padding: var(--padding-xl) var(--padding-6xl) var(--padding-lgi);
+  font-family: var(--font-inter);
+  font-size: var(--font-size-21xl);
+  color: var(--color-darkgray);
+  min-width: 250px;
+  z-index: 1;
+}
+.frame-parent22,
+.frame-wrapper11 {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frame-parent22 {
+  width: 535px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-smi);
+}
+.frame-wrapper11 {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 0 var(--padding-xl) var(--padding-13xl);
+  box-sizing: border-box;
+}
+.forgot-password2 {
+  margin: 0;
+}
+.forgot-password1 {
+  width: 267px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  text-shadow: 1px 0 0#000, 0 1px 0#000, -1px 0 0#000, 0-1px 0#000;
+  z-index: 1;
+}
+.forgot-password-wrapper {
+  width: 515px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.dont-already-have {
+  align-self: stretch;
+  position: relative;
+  text-shadow: 1px 0 0#000, 0 1px 0#000, -1px 0 0#000, 0-1px 0#000;
+  z-index: 1;
+}
+.frame-parent23,
+.frame-wrapper12 {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frame-parent23 {
+  width: 561px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-smi);
+}
+.frame-wrapper12 {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 0 0 58px;
+  box-sizing: border-box;
+  font-size: var(--font-size-11xl);
+}
+.rectangle-parent15,
+.welcome-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.rectangle-parent15 {
+  align-self: stretch;
+  background-color: var(--color-gainsboro-100);
+  padding: var(--padding-20xl) 54px var(--padding-33xl);
+  box-sizing: border-box;
+  gap: var(--gap-smi);
+  
+}
+.welcome-parent {
+  width: 919px;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}
+.login-page,
+.login-page-inner {
+  display: flex;
+  box-sizing: border-box;
+}
+.login-page-inner {
+  align-self: stretch;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 var(--padding-xl) 0 var(--padding-2xl);
+  max-width: 100%;
+}
+.login-page {
+  width: 100%;
+  position: relative;
+  background-color: var(--c1-j);
+  overflow: hidden;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 0 0 149px;
+  gap: var(--gap-31xl);
+  letter-spacing: normal;
+}
+@media screen and (max-width: 925px) {
+  .rectangle-parent13 {
+    padding-left: var(--padding-4xl);
+    padding-right: var(--padding-19xl);
+    box-sizing: border-box;
+  }
+  .welcome {
+    font-size: var(--font-size-13xl);
+  }
+  .login1 {
+    font-size: var(--font-size-29xl);
+  }
+  .enter-username1,
+  .password3,
+  .username1 {
+    font-size: var(--font-size-13xl);
+  }
+  .dont-already-have,
+  .forgot-password1 {
+    font-size: var(--font-size-5xl);
+  }
+  .rectangle-parent15 {
+    padding-left: var(--padding-8xl);
+    padding-right: var(--padding-8xl);
+    box-sizing: border-box;
+    
+  }
+  .login-page {
+    gap: 25px 50px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .frame-wrapper12 {
+    padding-left: var(--padding-10xl);
+    box-sizing: border-box;
+  }
+  .rectangle-parent15 {
+    padding-top: var(--padding-6xl);
+    padding-bottom: var(--padding-15xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .welcome {
+    font-size: var(--font-size-5xl);
+  }
+  .login1 {
+    font-size: var(--font-size-17xl);
+  }
+  .enter-username1,
+  .password3,
+  .username1 {
+    font-size: var(--font-size-5xl);
+  }
+  .dont-already-have,
+  .forgot-password1 {
+    font-size: var(--font-size-lg);
+  }
+}
