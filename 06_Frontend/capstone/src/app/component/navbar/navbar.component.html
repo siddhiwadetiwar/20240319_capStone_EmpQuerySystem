@@ -1,26 +1,21 @@
 <!-- Header section -->
-<header class="frame-header">
-    <div class="frame-child16"></div>
-    <div class="f-r-a-m-e-v-e-c-t-o-r">
-        <!-- Search icon -->
-        <img class="search-component-icon" loading="lazy" alt="" src="../../../assets/vector2.svg" />
-    </div>
-    <div class="setting-component">
-        <!-- Search input field -->
-        <input style="margin-left: 420px;" class="add-a-comment" placeholder="Search" type="text" />
-        <div class="setting-component-child"></div>
-        <!-- Search icon image -->
-        <img class="search-icon4" alt="" src="../../../assets/search.svg" />
 
-    </div>
-    <!-- User icon -->
-    <div class="user-alt-fill-parent">
-        <img class="user-alt-fill-icon" loading="lazy" alt="" src="../../../assets/user-alt-fill.svg" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <button class="btn btn-outline-success" (click)="navToHome()" type="button">Home</button>
 
-        <div class="user-alt-fill">
-            <!-- Setting icon -->
-            <img class="setting-fill-icon" loading="lazy" alt="" src="../../../assets/setting-fill@2x.png" />
-        </div>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" required [formControl]="username" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="sendUserName()">Search</button>
+    </form>
+    <div *ngIf="isLogged ==true">
+        <button class="btn btn-outline-success" (click)="navToHome()" id="signInBtn" type="button">Log Out</button>
     </div>
-</header>
+    <div *ngIf="isLogged ==false">
+        <button class="btn btn-outline-success" (click)="navToLogin()" id="signInBtn" type="button">Log In</button>
+    </div>
+
+    <button class="btn btn-outline-success" (click)="navToSignUp()" type="button">Sign Up</button>
+</nav>

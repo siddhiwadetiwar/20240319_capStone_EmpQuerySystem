@@ -243,5 +243,21 @@ async function logout(req, res) {
   });
 }
 
+/** Comtroller for getting all Users
+ * @param {Object} req - request object
+ * @param {Object} res - request object
+ */
+async function getAllUsers(req, res) {
+  try {
+    // Retrieve all posts from the database
+    const posts = await User.find();
+console.log(posts);
+    return res.status(200).json({ posts });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 // Export the signup and signin functions for use in other files
-module.exports = { signup, signin, logout};
+module.exports = { signup, signin, logout,getAllUsers};

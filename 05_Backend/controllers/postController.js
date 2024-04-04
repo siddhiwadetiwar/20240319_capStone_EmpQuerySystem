@@ -29,6 +29,8 @@ async function addPost(req, res) {
     images,
   } = req.body;
 
+  console.log(req);
+
   // Creating a new post object
   const post = new PostCollection({
     postContent,
@@ -68,7 +70,7 @@ async function addPost(req, res) {
 async function getAllPosts(req, res) {
   try {
     // Retrieve all posts from the database
-    const posts = await PostCollection.find();
+    const posts = await PostCollection.find().populate("userId","username");
 
     return res.status(200).json({ posts });
   } catch (error) {
@@ -76,7 +78,6 @@ async function getAllPosts(req, res) {
     return res.status(500).json({ message: 'Internal server error' });
   }
 }
-
 
 // async function getAllPostsByUsername(req, res) {
 //   try {
@@ -108,7 +109,8 @@ async function getAllPostsByUsername(req, res) {
   try {
     // Extract username from the request body or query parameters
     const { username } = req.params; // Or req.query, depending on how you're sending the username
-    console.log('Received username:', username)
+    console.log('Received username: ', username)
+
     // Validate the username format if needed
     if (!usernameValidator(username)) {
       return res.status(400).json({ message: 'Invalid username format' });
@@ -154,7 +156,7 @@ async function getFilteredPosts(req, res) {
     }
 
     // Find posts based on the filter
-    const posts = await PostCollection.find(filter);
+    const posts = await PostCollection.find(filter).populate("userId","username");
 
     // Return filtered posts as a JSON response
     return res.status(200).json({ posts });

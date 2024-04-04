@@ -1,130 +1,29 @@
-.frame-child16 {
-    height: 99px;
-    width: 1440px;
-    position: relative;
-    background-color: var(--color-whitesmoke);
-    box-sizing: border-box;
-    display: none;
-    max-width: 100%;
+.navbar{
+    background-color: #d9d9d9 !important;
 }
 
-.search-component-icon {
-    width: 61px;
-    height: 47px;
-    position: relative;
-    z-index: 2;
+.btn{
+    background-color: darkblue;
+    color: white;
 }
 
-.f-r-a-m-e-v-e-c-t-o-r {
-    height: 520px;
-    width: 196px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 0 0 var(--padding-8xs);
-    box-sizing: border-box;
+.btn.focus, .btn:focus, .btn:hover {
+     color:white !important;
 }
 
-.setting-component-child {
-    height: 54px;
-    width: 752px;
-    border-radius: var(--br-31xl);
-    background-color: var(--c1-j);
-    border: 1px solid var(--color-black);
-    box-sizing: border-box;
-    display: none;
-    max-width: 100%;
+.btn-outline-success:hover {
+    color: #fff;
+    background-color: blue !important;
+    border-color: #28a745;
 }
 
-.search-icon4 {
-    height: 43px;
-    width: 93px;
-    position: relative;
-    z-index: 3;
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+    outline: unset !important;
+    outline-offset: -2px;
 }
 
-.setting-component {
-    height: 54px;
-    width: 752px;
-    border-radius: var(--br-31xl);
-    background-color: var(--c1-j);
-    border: 1px solid var(--color-black);
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: var(--padding-10xs) var(--padding-20xs);
-    max-width: 100%;
-
-}
-
-.setting-fill-icon,
-.user-alt-fill-icon {
-    height: 58px;
-    width: 68px;
-    position: relative;
-    z-index: 2;
-}
-
-.setting-fill-icon {
-    width: 53px;
-    height: 48px;
-    object-fit: cover;
-}
-
-.frame-header,
-.user-alt-fill,
-.user-alt-fill-parent {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-.user-alt-fill {
-    height: 53px;
-    flex-direction: column;
-    padding: var(--padding-8xs) 0 0;
-    box-sizing: border-box;
-}
-
-.frame-header,
-.user-alt-fill-parent {
-    align-self: stretch;
-    flex-direction: row;
-    gap: var(--gap-9xl);
-}
-
-.frame-header {
-    height: 99px;
-    background-color: var(--color-whitesmoke);
-    border: 1px solid var(--color-black);
-    box-sizing: border-box;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: var(--padding-lg) var(--padding-58xl) var(--padding-4xl) var(--padding-32xl);
-    top: 0;
-    z-index: 1;
-    position: sticky;
-    gap: var(--gap-xl);
-    max-width: 100%;
-}
-
-.add-a-comment {
-    width: 100%;
-    border: 0;
-    outline: 0;
-    font-family: var(--font-inter);
-    font-size: var(--font-size-6xl);
-    background-color: transparent;
-    position: absolute;
-    top: 12px;
-    left: 37px;
-    color: var(--color-darkgray);
-    text-align: left;
-    display: inline-block;
-    height: 54px;
-    padding: 0;
-    z-index: 3;
+.btn-outline-success:not(:disabled):not(.disabled).active, .btn-outline-success:not(:disabled):not(.disabled):active, .show>.btn-outline-success.dropdown-toggle {
+    color: #fff;
+    background-color:  blue !important;
+    border-color: #28a745;
 }

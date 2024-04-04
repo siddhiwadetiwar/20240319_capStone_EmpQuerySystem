@@ -1,169 +1,119 @@
-<section class="what-to-ask-fill">
-    <!-- Entertainment section -->
-    <div class="entertainment-wrapper">
-        <div class="entertainment">Entertainment</div>
+<!-- Main content section -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<section class="main-content">
+    <div class="radio-container">
+        <label><input type="radio" [(ngModel)]="selectedOption" value="educational" name="options"> Educational</label>
+        <label><input type="radio" [(ngModel)]="selectedOption" value="personal" name="options"> Personal</label>
+        <label><input type="radio" [(ngModel)]="selectedOption" value="entertainment" name="options">
+            Entertainment</label>
     </div>
-    <div class="rectangle-parent6">
+    <!-- <div class="rectangle-parent6">
         <div class="frame-child18"></div>
         <div class="vector-parent1">
             <img class="frame-child19" loading="lazy" alt="" src="../../../assets/rectangle-4163.svg" />
-            <!-- Input field for asking questions -->
-            <input class="add-a-comment" placeholder="what do you want to ask?" type="text" />
+            <input class="add-a-comment" placeholder="what do you want to ask?" required="" [formControl]="postControl" type="text" />
         </div>
         <div class="edit-fill"></div>
         <div class="frame-wrapper4">
             <div class="subtract-parent">
                 <img class="subtract-icon" loading="lazy" alt="" src="../../../assets/subtract.svg" />
-                <button>
+                <button style="width: 100px;height: 50px;vertical-align: center;" (click)="addPost()">
                     <div class="post-wrapper">
-                        <!-- Post button -->
                         <div class="post">Post</div>
                     </div>
                 </button>
             </div>
         </div>
+
+    </div> -->
+
+    <ckeditor [editor]="Editor" [(ngModel)]="postMessage" data="<p>Hello, world!</p>"></ckeditor>
+    <div class="button-container">
+        <button class="button" (click)="addPost()">
+            <span class="text">Post</span>
+            <div class="overlay">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-arrow-right">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </div>
+        </button>
     </div>
-</section>
-<section class="downvote-label">
-    <div class="chat-symbol-fill">
-        <div class="frame-parent16">
-            <div class="educational-wrapper">
-                <div class="educational"><a href="/" style="color: inherit; text-decoration: none;">Educational</a>
-                </div>
-            </div>
-            <div class="vector-wrapper">
-                <img class="line-icon" loading="lazy" alt="" src="../../../assets/line-4.svg" />
-            </div>
-            <div class="personal-wrapper">
-                <div class="personal"><a href="/" style="color: inherit; text-decoration: none;">Personal</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="frame-parent17">
-        <div class="frame-parent18">
+
+    <!-- Dynamic posts -->
+    <div *ngFor="let post of postResponse.posts" class="frame-parent17">
+        <div class="frame-parent18" id="{{post._id}}">
+            <!-- Name and image -->
             <div class="frame-parent19">
                 <div class="rectangle-parent7">
                     <div class="frame-child20"></div>
                     <img class="subtract-icon1" alt="" src="../../../assets/subtract-1.svg" />
                 </div>
-                <div class="siddhi-wadetiwar-march-container">
-                    <p class="siddhi-wadetiwar">Siddhi Wadetiwar</p>
-                    <p class="march-12">March 12</p>
+                <div *ngIf="post.userId!=null && post.username!=null" class="siddhi-wadetiwar-march-container">
+                    <p class="siddhi-wadetiwar2">{{post.username}}</p>
+                    <p class="march-12">{{post.postDateTime}}</p>
+                </div>
+                <div *ngIf="post.userId!=null && post.username==null" class="siddhi-wadetiwar-march-container">
+                    <p class="siddhi-wadetiwar2">{{post.userId.username}}</p>
+                    <p class="march-12">{{post.postDateTime}}</p>
+                </div>
+                <div *ngIf="post.userId==null && post.username==null" class="siddhi-wadetiwar-march-container">
+                    <p class="siddhi-wadetiwar2">User Empty</p>
+                    <p class="march-12">{{post.postDateTime}}</p>
                 </div>
             </div>
+
             <div class="frame-wrapper5">
                 <div class="rectangle-parent8">
                     <div class="frame-child21"></div>
                     <div class="how-would-you-container">
-                        <p class="how-would-you">
-                            How would you ensure data security and privacy in a web
-                            application handling sensitive user data?
-                        </p>
-                        <p class="blank-line">&nbsp;</p>
-                    </div>
-                    <div class="upvote-component">
-                        <div class="frame-parent20">
-                            <div class="downvote-component-parent">
-                                <div class="downvote-component">
-                                    <img class="export-duotone-line-icon" alt=""
-                                        src="../../../assets/export-duotone-line.svg" />
+                        <div class="how-would-you" [innerHTML]="post.postContent[0]">
 
-                                    <div class="downvote-component-inner">
-                                        <div class="end-encryption-component-parent">
-                                            <div class="end-encryption-component"></div>
-                                            <div class="upvote">Upvote</div>
-                                            <img class="frame-child22" alt="" src="../../../assets/line-1.svg" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="data-security-parent">
-                                    <!-- Parent container for data security -->
-                                    <div class="import-duotone-line-parent">
-                                        <!-- Parent container for import duotone line -->
-                                        <img class="import-duotone-line-icon" loading="lazy" alt=""
-                                            src="../../../assets/import-duotone-line.svg" />
-                                        <!-- Import duotone line icon -->
-                                        <div class="comment-area">
-                                            <!-- Area for comments -->
-                                            <div class="downvote">Downvote</div>
-                                            <!-- Downvote section -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of data-security-parent -->
-                            <div class="chat-alt-fill-wrapper">
-                                <!-- Wrapper for chat alt fill -->
-                                <img class="chat-alt-fill-icon" loading="lazy" alt=""
-                                    src="../../../assets/chat-alt-fill@2x.png" />
-                            </div>
                         </div>
+                        <div style="display: flex">
+                            <p>
+                                <a class="btn btn-info btn-lg" (click)="upVote(post.userId._id, post._id)">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span> {{ post.upvotesCount }}
+                                </a>&nbsp;
+                            </p>
+                            <p>
+                                <a class="btn btn-info btn-lg" (click)="downVote(post.userId._id,post._id)">
+                                    <span class="glyphicon glyphicon-thumbs-down"></span> {{ post.downvotesCount}}
+                                </a>
+                            </p>
+                        </div>
+                        <p class="blank-line">&nbsp;</p>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Comment Block -->
         <div class="frame-wrapper6">
             <div class="rectangle-parent9">
                 <div class="frame-child23"></div>
                 <img class="subtract-icon2" alt="" src="../../../assets/subtract-1.svg" />
-
                 <div class="frame-wrapper7">
                     <div class="rectangle-parent10">
                         <div class="frame-child24"></div>
-                        <input class="add-a-comment" placeholder="Add a Comment" type="text" />
+                        <input class="add-a-comment" placeholder="Add a Comment" type="text" id="{{post._id}}_comment"
+                            [formControl]="comment" />
                     </div>
                 </div>
                 <button class="frame-button">
                     <div class="frame-child25"></div>
                     <div class="submit-wrapper">
-                        <div class="submit">Submit</div>
+                        <div class="submit" (click)="addcomment(post._id)">Submit</div>
                     </div>
                 </button>
             </div>
         </div>
-        <div class="chat-comment">
-            <div class="chat-comment-child"></div>
-            <img class="subtract-icon3" alt="" src="../../../assets/subtract-1.svg" />
-
-            <div class="how-to-ensure-security-wrapper">
-                <div class="how-to-ensure-security">
-                    <div class="jay-dubey-march-13-wrapper">
-                        <div class="jay-dubey-container">
-                            <span>Jay Dubey . </span>
-                            <span class="march-13">March 13</span>
-                        </div>
-                    </div>
-                    <div class="implement-encryption-parent">
-                        <div class="implement-encryption">
-                            <div class="implement-end-to-end-encryptio">
-                                Implement end-to-end encryption, strong authentication,
-                                secure coding practices, data masking, HTTPS/TLS,
-                                regular security audits, clear data retention policies,
-                                and user education.
-                            </div>
-                        </div>
-                        <div class="rectangle-parent11">
-                            <div class="frame-child26"></div>
-                            <div class="export-duotone-line-parent">
-                                <img class="export-duotone-line-icon1" alt="" />
-
-                                <img class="export-duotone-line-icon2" alt=""
-                                    src="../../../assets/export-duotone-line.svg" />
-                            </div>
-                            <div class="frame-child27"></div>
-                            <div class="frame-wrapper8">
-                                <div class="import-duotone-line-group">
-                                    <img class="import-duotone-line-icon1" alt="" />
-
-                                    <img class="import-duotone-line-icon2" alt=""
-                                        src="../../../assets/import-duotone-line.svg" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+    <!-- Rest of your main content HTML goes here -->
+    <!-- For demonstration purposes, I've added some placeholder content -->
 </section>
+<div id="snackBar" class="snack-bar">
+</div>

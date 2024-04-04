@@ -1,0 +1,44 @@
+/* CSS styles for the sidebar and main content */
+.sidebar {
+    width: 180px;
+    background-color: var(--color-gainsboro);
+    padding: 20px;
+    float: left;
+    height: 100vh;
+}
+
+.main-content {
+    margin-left: 270px;
+    /* Adjust margin-left to accommodate sidebar width */
+    padding: 20px;
+}
+
+
+.chat-symbol-fill {
+    margin-bottom: 20px;
+}
+
+
+.chat-symbol-fill,
+.frame-parent16,
+.personal-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+
+
+.chat-symbol-fill,
+.frame-parent16 {
+    flex-direction: column;
+    max-width: 100%;
+}
+
+
+
+.chat-symbol-fill {
+    width: 343.6px;
+    padding: var(--padding-6xl) 0 0;
+    box-sizing: border-box;
+}

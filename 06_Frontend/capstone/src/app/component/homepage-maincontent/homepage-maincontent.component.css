@@ -28,21 +28,6 @@
     z-index: 2;
 }
 
-.entertainment {
-    align-self: stretch;
-    position: relative;
-    z-index: 2;
-}
-
-.entertainment-wrapper {
-    width: 317px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: var(--padding-32xl) 0 0;
-    box-sizing: border-box;
-}
 
 .frame-child18 {
     height: 101px;
@@ -104,9 +89,10 @@
 
 .post {
     align-self: stretch;
-    height: 58px;
+    height: 20px;
     display: inline-block;
     flex-shrink: 0;
+    /* padding-top: 8px; */
 }
 
 .post-wrapper {
@@ -115,7 +101,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: var(--padding-10xs) 0 0;
+
 }
 
 .subtract-parent {
@@ -285,7 +271,8 @@
 }
 
 .march-12 {
-    margin: 0;
+    /* margin: 0; */
+    margin-top: -3px;
     font-size: var(--h4-size);
 }
 
@@ -451,7 +438,7 @@
     padding: var(--padding-5xs) 0 0 var(--padding-mini);
     min-width: 291px;
     flex-shrink: 0;
-    
+
 }
 
 .chat-alt-fill-icon {
@@ -888,12 +875,11 @@
 
 .frame-main {
     align-self: stretch;
-    height: 925px;
+    height: 800px;
     position: relative;
     background-color: var(--color-gainsboro-100);
     max-width: 100%;
-    margin-top: -3px;
-    
+    margin-top: -10px;
 }
 
 .homepage1 {
@@ -1014,3 +1000,152 @@
         font-size: var(--h4-size);
     }
 }
+
+/* CSS styles for the sidebar and main content */
+.sidebar {
+    width: 250px;
+    background-color: var(--color-gainsboro);
+    padding: 20px;
+    float: left;
+    height: 800px;
+}
+
+.main-content {
+    margin-left: 270px;
+    /* Adjust margin-left to accommodate sidebar width */
+    padding: 20px;
+    position: absolute;
+}
+
+/* Additional styles for elements inside the sidebar */
+.entertainment-wrapper {
+    align-self: stretch;
+    height: 60.4px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0 0 0 26.59999999999991px;
+    box-sizing: border-box;
+    font-size: 30px;
+}
+
+.chat-symbol-fill {
+    margin-bottom: 20px;
+}
+
+.frame-parent16 {
+    display: flex;
+    flex-direction: column;
+}
+
+.educational-wrapper,
+.personal-wrapper {
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.snack-bar {
+    display: none;
+    /* Initially hide the snack bar */
+    position: fixed;
+    text-align: center;
+    top: 0;
+    left: 50%;
+    min-width: 250px;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 16px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+}
+
+.radio-container {
+    display: flex;
+    gap: 10px;
+    /* Adjust the space between checkboxes */
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.radio-container label {
+    margin-right: 10px;
+    /* Adjust the space between radio buttons */
+}
+
+.radio-container input[type="radio"] {
+    width: 20px;
+    /* Adjust the width of the radio button */
+    height: 20px;
+    /* Adjust the height of the radio button */
+}
+
+/* New post button */
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+button {
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    isolation: isolate;
+  }
+  
+  .button {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+    width: 240px;
+    border-radius: 9999rem;
+    background: #efefef;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  
+    & > span.text {
+      color: #121212;
+      width: 100%;
+      text-align: left;
+      padding-block: 12px;
+      padding-left: 24px;
+      z-index: 2;
+      transition: all 200ms ease;
+    }
+  
+    & > div.overlay {
+      color: #fff;
+      width: 48px;
+      height: calc(100% - 2px);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 12px;
+      border-radius: inherit;
+      background: #fbc0de;
+      position: absolute;
+      right: 1px;
+      z-index: 1;
+      transition: all 400ms ease;
+    }
+  
+    &:is(:hover, :focus) {
+      & > span.text {
+        color: #ededed;
+      }
+      & > div.overlay {
+        width: calc(100% - 2px);
+        transition: width 200ms ease;
+      }
+    }
+  }
+  

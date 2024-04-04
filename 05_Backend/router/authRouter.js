@@ -13,5 +13,8 @@ router.post("/signin", authController.signin);
 // Route for resetting password
 router.post("/logout", authController.logout);
 
+//Get all users
+router.get("/getAllUsers", authController.getAllUsers);
+
 // Export the router
 module.exports = router;

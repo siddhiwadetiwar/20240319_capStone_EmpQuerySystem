@@ -20,7 +20,7 @@
   margin: 0;
   height: 67px;
   flex: 1;
-  position: relative;
+  position: absolute;
   font-size: inherit;
   font-weight: 400;
   font-family: inherit;
@@ -292,6 +292,7 @@
   }
   .login1 {
     font-size: var(--font-size-17xl);
+    justify-content: center;
   }
   .enter-username1,
   .password3,
@@ -302,4 +303,50 @@
   .forgot-password1 {
     font-size: var(--font-size-lg);
   }
+}
+
+/* New Styles */
+.richblue {
+  background-color:#fff;
+  color:cornflowerblue;
+  border:2px rgb(189 189 217) solid;  
+  margin-left: 260px;
+  border-radius:34px;
+  padding:1% 15%;
+  font-size:1em;
+  transition: .2s ease-in-out all;
+    box-shadow: 0 0px 15px rgba(0, 0, 200, 0.2);
+}
+.richblue:hover{
+  background-color:#fff;
+  color:cornflowerblue;
+  border:2px rgb(189 189 217) solid;  
+  box-shadow: 0 4px 15px rgba(0, 0, 200, 0.3);
+  transform:translateY(-2%);
+      transition: .2s ease-in-out all;
+}
+
+
+.error{
+  color: red;
+}
+
+.form{
+  width: 100%;
+}
+.snack-bar {
+  display: none;
+  /* Initially hide the snack bar */
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 50%;
+  min-width: 250px;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 16px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }
