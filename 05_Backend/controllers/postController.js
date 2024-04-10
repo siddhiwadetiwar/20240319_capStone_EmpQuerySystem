@@ -7,6 +7,8 @@ const PostCollection = require("../models/postCollection");
 // Importing the User model
 const User = require('../models/user');
 
+const mongoose = require("mongoose");
+
 const {
   postContentValidator,
   postTypeValidator,
@@ -38,6 +40,7 @@ async function addPost(req, res) {
     images,
     userId: req.user._id,
   });
+  console.log(post);
 
   try {
     // Validate the post content
@@ -70,7 +73,7 @@ async function addPost(req, res) {
 async function getAllPosts(req, res) {
   try {
     // Retrieve all posts from the database
-    const posts = await PostCollection.find().populate("userId","username");
+    const posts = await PostCollection.find().sort({ postDateTime: -1 }).populate("userId","username");
 
     return res.status(200).json({ posts });
   } catch (error) {
@@ -124,7 +127,22 @@ async function getAllPostsByUsername(req, res) {
     }
 
     // Find all posts of the user using their userId
-    const posts = await PostCollection.find({ userId: user._id });
+    const postss = await PostCollection.find({ userId: user._id }).sort({ postDateTime: -1 });
+
+    const posts = postss.map(post => ({
+      postContent: post.postContent,
+      postType: post.postType,
+      postDateTime: post.postDateTime,
+      upvotesCount: post.upvotesCount,
+      downvotesCount: post.downvotesCount,
+      images: post.images,
+      comments: post.comments,
+      upvotedUsers: post.upvotedUsers,
+      downvotedUsers: post.downvotedUsers,
+      userId: post.userId,
+      userName: user.username // Include the username here
+    }));
+
     console.log('User posts:', posts); 
     // Return the posts as a JSON response
     return res.status(200).json({ posts });
@@ -133,6 +151,27 @@ async function getAllPostsByUsername(req, res) {
     return res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+
+async function deletePostsById(req, res) {
+  const postId = req.params.postId;
+
+  try {
+    // Find the post by its ID and delete it
+    const deletedPost = await PostCollection.findByIdAndDelete(postId);
+
+    if (!deletedPost) {
+      // If the post with the provided ID doesn't exist, return a 404 status
+      return res.status(404).json({ message: 'Post not found.' });
+    }
+
+    // Return a success message
+    return res.json({ message: 'Post deleted successfully.' });
+  } catch (error) {
+    // If an error occurs, return a 500 status and the error message
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 /** Controller to get filtered posts based on type of educational, entertainment
  * and personal.
@@ -156,7 +195,7 @@ async function getFilteredPosts(req, res) {
     }
 
     // Find posts based on the filter
-    const posts = await PostCollection.find(filter).populate("userId","username");
+    const posts = await PostCollection.find(filter).sort({ postDateTime: -1 }).populate("userId","username");
 
     // Return filtered posts as a JSON response
     return res.status(200).json({ posts });
@@ -252,4 +291,5 @@ module.exports = {
   getFilteredPosts,
   upvotePostAndGetCount,
   downvotePostAndGetCount,
+  deletePostsById
 };

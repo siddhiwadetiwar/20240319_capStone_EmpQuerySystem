@@ -12,11 +12,11 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  username = new FormControl;
+  username = new FormControl('');
   isLogged!: boolean;
   constructor(private route: Router) {
     this.route.events.subscribe(value => {
-      console.log('current route: ', this.route.url.toString());
+      // console.log('current route: ', this.route.url.toString());
       if (this.route.url == '/homePage') {
         console.log("****")
         this.isLogged = true;
@@ -28,11 +28,13 @@ export class NavbarComponent {
   @Output() emitUserName: EventEmitter<string> = new EventEmitter<string>();
 
   sendUserName() {
-    if (this.username.valid) {
-      this.emitUserName.emit(this.username.value);
-
+    const inputValue = this.username.value;
+    if (inputValue && inputValue.trim().length > 0) {
+      console.log('Search query:', inputValue);
+      this.emitUserName.emit(inputValue);
     }
   }
+  
 
   navToSignUp() {
     sessionStorage.clear();

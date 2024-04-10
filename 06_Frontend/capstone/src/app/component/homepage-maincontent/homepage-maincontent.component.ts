@@ -5,9 +5,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { PostsResponse } from '../../models/posts-response';
+import { CommentsResponse } from '../../models/comments-response';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
 
 @Component({
   selector: 'app-homepage-maincontent',
@@ -20,7 +20,11 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export class HomepageMaincontentComponent implements OnInit {
   public Editor = ClassicEditor;
   postResponse: PostsResponse = new PostsResponse();
+  commentResponse: CommentsResponse = new CommentsResponse();
   receivedData: any;
+  
+
+  selectedOption: string = "educational"; 
 
   // @Output() childFunctionTriggered: EventEmitter<any> = new EventEmitter();
 
@@ -48,6 +52,22 @@ export class HomepageMaincontentComponent implements OnInit {
       })
     })
 
+    this.postService.getAllComments().subscribe(res => {
+      console.log(res);
+      this.commentResponse = res;
+      console.log(this.commentResponse.comments);
+
+      this.commentResponse.comments.forEach(data => {
+        const date = new Date(data.commentDateTime);
+        // Get the month, day, and year
+        const month = date.toLocaleString('default', { month: 'long' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        // Format the date as "Month Day, Year"
+        data.commentDateTime = `${month} ${day} ${year}`;
+      })
+    })
+
     if (this.route.url == 'homePage') {
       console.log("****")
     }
@@ -56,9 +76,9 @@ export class HomepageMaincontentComponent implements OnInit {
   comment = new FormControl();
 
   postControl = new FormControl();
-  selectedOption: string = '';
 
   postMessage: string = '';
+  commentMessage: string = '';
 
   checkboxClicked(option: string) {
     this.selectedOption = option;
@@ -106,10 +126,12 @@ export class HomepageMaincontentComponent implements OnInit {
 
 
   addcomment(postId: any) {
+    // console.log(postId);
     if (this.comment.valid) {
       this.postService.addComment(this.comment.value, postId).subscribe(res => {
         this.displaySnackBar("Comment added successfully");
         location.reload();
+        console.log("comment is created!!!")
       })
     } else {
       this.displaySnackBar("Comment is required");

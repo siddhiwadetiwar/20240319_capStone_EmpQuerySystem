@@ -8,7 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [NavbarComponent, RouterModule, HomepageMaincontentComponent, HomepageSidebarComponent ],
+  imports: [NavbarComponent, HomepageMaincontentComponent, HomepageSidebarComponent, RouterModule],
   providers:[PostService],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'

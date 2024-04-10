@@ -36,7 +36,8 @@ const postCollectionSchema = new mongoose.Schema({
     type: [String],
   },
   comments: [{
-    type: mongoose.Schema.Types.ObjectId,
+    // type: mongoose.Schema.Types.ObjectId,
+    type: [Object],
     ref: "comment",
   }],
   upvotedUsers: {

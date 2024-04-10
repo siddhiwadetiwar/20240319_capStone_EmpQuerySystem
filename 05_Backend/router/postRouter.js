@@ -18,6 +18,9 @@ router.get('/searchuser/:username', postController.getAllPostsByUsername);
 // Route for filtering posts
 router.get('/filter', postController.getFilteredPosts);
 
+//Delete Posts
+router.delete('/deletePosts/:postId',verifyJwt, getUserMiddleware, postController.deletePostsById);
+
 // Route for upvoting a post
 router.post('/upvote/:postId', verifyJwt, getUserMiddleware, postController.upvotePostAndGetCount);
 

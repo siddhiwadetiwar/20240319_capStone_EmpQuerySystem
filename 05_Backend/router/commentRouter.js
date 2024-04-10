@@ -11,6 +11,8 @@ router.post('/pincomment/:commentId', verifyJwt, getUserMiddleware, commentContr
 // Route for adding a comment to a post with postId specified in the URL
 router.post('/addcomment/:postId', verifyJwt, getUserMiddleware, commentController.addComment);
 
+// Route for getting all comments
+router.get('/getallcomment', commentController.getAllComments);
  
 // Route to upvote a comment
 router.put('/upvote/:commentId', verifyJwt, getUserMiddleware, commentController.upvoteCommentAndGetCount);

@@ -41,6 +41,17 @@ export class PostService {
     );
   }
 
+  getAllComments(): Observable<any> {
+    const url = `${this.baseUrl}comment/getallcomment`;
+    return this.http.get<any>(url).pipe(
+      catchError(error => {
+        this.displaySnackBar(error.error.message);
+        console.error('Error getAllComments:', error);
+        throw new Error('Error getAllComments');
+      })
+    );
+  }
+
   addComment(comment: any, postId: any): Observable<any> {
     const url = `${this.baseUrl}comment/addcomment/${postId}`
     let authToken = sessionStorage.getItem('token')

@@ -54,6 +54,8 @@ const pinComment = async (req, res) => {
  * @param {Object} res - request object
  */
 async function addComment(req, res) {
+    console.log(req.params.postId);
+    const post_id = req.params.postId;
     let postId = ''; // Correctly declare postId as a string
     // Extract postId from the request
     if (req.params.postId) {
@@ -83,14 +85,15 @@ async function addComment(req, res) {
         const comment = new Comment({
             postId,
             userId,
-            commentContent,
+            commentContent
         });
-
+        // console.log(comment);
         // Save the comment to the database
         const savedComment = await comment.save();
-
+        
         // Update the post to include the comment
-        post.comments.push(savedComment._id);
+        // post.comments.push(savedComment._id);
+        post.comments.push(savedComment);
         await post.save();
 
         return res.status(201).json({ comment: savedComment });
@@ -99,6 +102,18 @@ async function addComment(req, res) {
         return res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+async function getAllComments(req, res) {
+    try {
+      // Retrieve all comments from the database
+      const comments = await Comment.find().sort({ commentDateTime: -1 }).populate("userId","username");
+// console.log(comments);
+      return res.status(200).json({ comments });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
 
 /** Controller to upvote a comment and get count and not let the same user upvote again
 * @param {Object} req - request object
@@ -182,6 +197,7 @@ async function downvoteCommentAndGetCount(req, res) {
 module.exports = {
     pinComment,
     addComment,
+    getAllComments,
     upvoteCommentAndGetCount,
     downvoteCommentAndGetCount,
 };
