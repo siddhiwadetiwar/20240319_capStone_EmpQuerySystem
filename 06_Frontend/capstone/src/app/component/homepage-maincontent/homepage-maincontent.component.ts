@@ -24,7 +24,7 @@ export class HomepageMaincontentComponent implements OnInit {
   receivedData: any;
   
 
-  selectedOption: string = "educational"; 
+  selectedOption: string = ""; 
 
   // @Output() childFunctionTriggered: EventEmitter<any> = new EventEmitter();
 
@@ -154,6 +154,7 @@ export class HomepageMaincontentComponent implements OnInit {
       location.reload();
     })
   }
+  
   username = new FormControl();
   getPostsByUsername(username: any) {
     this.postService.filterPostByUser(username).subscribe(data => {
@@ -166,10 +167,9 @@ export class HomepageMaincontentComponent implements OnInit {
         const year = date.getFullYear();
         // Format the date as "Month Day, Year"
         data.postDateTime = `${month} ${day} ${year}`;
-      })
-      console.log(data);
-    })
-
+        data.username = username;
+      })     
+    });
   }
 
 

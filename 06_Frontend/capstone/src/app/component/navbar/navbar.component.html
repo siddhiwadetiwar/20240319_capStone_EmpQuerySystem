@@ -49,7 +49,7 @@
         <!-- Search form -->
         <form class="d-flex input-group w-auto mr-5" (ngSubmit)="sendUserName()">
           <input type="search" class="form-control" required [formControl]="username" placeholder="Type query" aria-label="Search" />
-          <button class="btn btn-outline-primary" type="submit" (click)="sendUserName()" >Search</button>
+          <button class="btn btn-outline-primary" type="submit" (click)="sendUserName()">Search</button>
         </form>
 
         <div *ngIf="isLogged ==true" class = "d-flex align-items-center">
@@ -61,6 +61,7 @@
             <button class="btn btn-outline-primary" (click)="navToLogin()" id="signInBtn" type="button">Log In</button>
         </div>
 
+        <button class="btn btn-outline-success" (click)="navToSignUp()" type="button">Sign Up</button>
       </div>
       <!-- Collapsible wrapper -->
     </div>
