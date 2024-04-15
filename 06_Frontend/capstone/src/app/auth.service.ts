@@ -8,7 +8,7 @@ import { Observable, catchError } from 'rxjs';
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:3000/'; // Replace 'your-api-url' with your actual API URL
+  private baseUrl = 'https://only-credit-backend.vercel.app/'; // Replace 'your-api-url' with your actual API URL
 
   constructor(private http: HttpClient) { }
 

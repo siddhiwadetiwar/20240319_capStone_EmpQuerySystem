@@ -65,7 +65,7 @@ const commentSchema = new mongoose.Schema({
   downvotedUsers: { 
     type: [mongoose.Schema.Types.ObjectId], 
     default: [] 
-  },
+  }
 });
 
 // Create and export the Comment model

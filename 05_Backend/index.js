@@ -12,6 +12,10 @@ const commentRouter = require('./router/commentRouter');
 
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+    res.json("111")
+})
+
 // Routes
 app.use('/post', postRouter);
 app.use('/auth', authRouter);

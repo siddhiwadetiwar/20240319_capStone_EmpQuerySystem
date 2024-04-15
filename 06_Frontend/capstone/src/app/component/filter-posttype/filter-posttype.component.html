@@ -1,3 +1,26 @@
+<!-- <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" style="font-size: 20px;" data-bs-keyboard="false" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title d-none d-sm-block" id="offcanvas">CATEGORY</h3>
+    </div>
+    <div class="offcanvas-body px-0">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+            <li>
+                <a (click)="onColumnClicked('entertainment')" data-bs-toggle="collapse" class="nav-link text-truncate">
+                    <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Entertainment</span> </a>
+            </li>
+            <li>
+                <a (click)="onColumnClicked('educational')" data-bs-toggle="collapse" class="nav-link text-truncate">
+                    <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Educational</span> </a>
+            </li>
+            <li>
+                <a (click)="onColumnClicked('personal')" class="nav-link text-truncate">
+                    <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Personal</span></a>
+            </li>
+        </ul>
+    </div>
+</div> -->
+
+
 <!--Main Navigation-->
 <header>
     <!-- Sidebar -->
@@ -24,24 +47,21 @@
                 <a
                     class="list-group-item list-group-item-action py-2 ripple"
                     aria-current="true"
-                    (click)="onColumnClicked('educational')"
-                    style="font-size: 25px;"
+                    (click)="onColumnClicked('entertainment')"
                     >
-                    <i class="fas fa-tachometer-alt fa-fw me-4"></i><span>Entertainment</span>
+                    <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Educational</span>
+                </a>
+                <a
+                    class="list-group-item list-group-item-action py-2 ripple"
+                    (click)="onColumnClicked('educational')"
+                    >
+                    <i class="fas fa-chart-area fa-fw me-3"></i><span>Entertainment</span>
                 </a>
                 <a
                     class="list-group-item list-group-item-action py-2 ripple"
                     (click)="onColumnClicked('personal')"
-                    style="font-size: 25px;"
                     >
-                    <i class="fas fa-chart-area fa-fw me-4"></i><span>Personal</span>
-                </a>
-                <a
-                    class="list-group-item list-group-item-action py-2 ripple"
-                    (click)="onColumnClicked('entertainment')"
-                    style="font-size: 25px;"
-                    >
-                    <i class="fas fa-lock fa-fw me-4"></i><span>Educational</span></a
+                    <i class="fas fa-lock fa-fw me-3"></i><span>Personal</span></a
                 >
             </div>
         </div>

@@ -50,13 +50,13 @@ const pinComment = async (req, res) => {
     }
 };
 
+
 /** Controller for adding a comment to a post
  * @param {Object} req - request object
  * @param {Object} res - request object
  */
 async function addComment(req, res) {
     console.log(req.params.postId);
-    const post_id = req.params.postId;
     let postId = ''; // Correctly declare postId as a string
     // Extract postId from the request
     if (req.params.postId) {
@@ -88,16 +88,18 @@ async function addComment(req, res) {
             userId,
             commentContent
         });
-        // console.log(comment);
         // Save the comment to the database
+        console.log(comment);
         const savedComment = await comment.save();
         
         // Update the post to include the comment
         // post.comments.push(savedComment._id);
         post.comments.push(savedComment);
+
         await post.save();
 
         return res.status(201).json({ comment: savedComment });
+        
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
@@ -130,7 +132,7 @@ async function upvoteCommentAndGetCount(req, res) {
         // Find the comment by its ID
         const comment = await Comment.findById(commentId);
         if (!comment) {
-            return res.status(404).json({ message: 'Comment does not exist' });
+            return res.status(404).json({ message: 'Comment not found' });
         }
 
         // Check if the user has already upvoted this comment
@@ -167,7 +169,7 @@ async function downvoteCommentAndGetCount(req, res) {
         // Check if the comment exists
         const comment = await Comment.findById(commentId);
         if (!comment) {
-            return res.status(404).json({ message: 'Comment do not exist' });
+            return res.status(404).json({ message: 'Comment not found' });
         }
 
         //   // Check if the downvotedUsers array exists in the comment object

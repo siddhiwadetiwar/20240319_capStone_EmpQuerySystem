@@ -69,7 +69,7 @@ async function signup(req, res) {
     !emailValidator(email) ||
     !passwordValidator(password)
   ) {
-    return res.status(400).json({ message: "Enter valid details" });
+    return res.status(400).json({ message: "Invalid input" });
   }
 
   try {
