@@ -14,5 +14,6 @@ export class Posts {
     postDateTime: any;
     userId!:User;
     username:any;
+    userName:any;
     __v: any;
 }

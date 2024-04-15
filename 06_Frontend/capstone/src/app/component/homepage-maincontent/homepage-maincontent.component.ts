@@ -22,23 +22,23 @@ export class HomepageMaincontentComponent implements OnInit {
   postResponse: PostsResponse = new PostsResponse();
   commentResponse: CommentsResponse = new CommentsResponse();
   receivedData: any;
-  
 
-  selectedOption: string = ""; 
+  selectedOption: string = "educational"; 
 
   // @Output() childFunctionTriggered: EventEmitter<any> = new EventEmitter();
 
   // triggerChildFunction() {
   //   this.childFunctionTriggered.emit();
   // }
+
   @ViewChild('signInBtn') myButton!: ElementRef;
   constructor(httpclient: HttpClient, private postService: PostService, private route: Router) {
 
   }
+
   ngOnInit(): void {
     this.postService.getAllPosts().subscribe(res => {
       this.postResponse = res
-      console.log(res)
       console.log(this.postResponse);
 
       this.postResponse.posts.forEach(data => {
@@ -53,11 +53,11 @@ export class HomepageMaincontentComponent implements OnInit {
     })
 
     this.postService.getAllComments().subscribe(res => {
-      console.log(res);
       this.commentResponse = res;
       console.log(this.commentResponse.comments);
 
       this.commentResponse.comments.forEach(data => {
+        data.isPinned = false;
         const date = new Date(data.commentDateTime);
         // Get the month, day, and year
         const month = date.toLocaleString('default', { month: 'long' });
@@ -66,7 +66,7 @@ export class HomepageMaincontentComponent implements OnInit {
         // Format the date as "Month Day, Year"
         data.commentDateTime = `${month} ${day} ${year}`;
       })
-    })
+    })    
 
     if (this.route.url == 'homePage') {
       console.log("****")
@@ -125,8 +125,7 @@ export class HomepageMaincontentComponent implements OnInit {
   }
 
 
-  addcomment(postId: any) {
-    // console.log(postId);
+  addComment(postId: any) {
     if (this.comment.valid) {
       this.postService.addComment(this.comment.value, postId).subscribe(res => {
         this.displaySnackBar("Comment added successfully");
@@ -137,6 +136,33 @@ export class HomepageMaincontentComponent implements OnInit {
       this.displaySnackBar("Comment is required");
     }
   }
+
+  dynamicElements: string[] = [];
+
+  pressPin(commentId:any): void {
+    this.postService.pinComment(commentId).subscribe(res => {
+      
+      this.displaySnackBar("Comment pinned successfully");
+
+      const commentIndex = this.commentResponse.comments.findIndex(c => c._id === commentId);
+      if (commentIndex !== -1) {
+        this.commentResponse.comments[commentIndex].isPinned = !this.commentResponse.comments[commentIndex].isPinned;
+      }
+
+      const exsit = this.dynamicElements.findIndex(el => {return commentId===el} )
+      
+      if (exsit === -1) {
+      this.dynamicElements.push(commentId);
+      
+      }
+      else{
+        this.dynamicElements.splice(exsit,1);
+      }
+      
+    })
+
+  }
+  
   upVote(userid: any, postId: any) {
     let req = {
       "userId": userid
@@ -145,6 +171,7 @@ export class HomepageMaincontentComponent implements OnInit {
       location.reload();
     })
   }
+
   downVote(userid: any, postId: any) {
     let req = {
       "userId": userid
@@ -154,8 +181,9 @@ export class HomepageMaincontentComponent implements OnInit {
       location.reload();
     })
   }
-  
+
   username = new FormControl();
+
   getPostsByUsername(username: any) {
     this.postService.filterPostByUser(username).subscribe(data => {
       this.postResponse=data;
@@ -167,9 +195,10 @@ export class HomepageMaincontentComponent implements OnInit {
         const year = date.getFullYear();
         // Format the date as "Month Day, Year"
         data.postDateTime = `${month} ${day} ${year}`;
-        data.username = username;
-      })     
-    });
+      })
+      console.log(data);
+    })
+
   }
 
 

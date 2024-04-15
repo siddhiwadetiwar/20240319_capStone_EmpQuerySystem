@@ -45,15 +45,14 @@
             
         </ul>
         <!-- Left links -->
-  
-        <!-- Search form -->
-        <form class="d-flex input-group w-auto mr-5" (ngSubmit)="sendUserName()">
-          <input type="search" class="form-control" required [formControl]="username" placeholder="Type query" aria-label="Search" />
-          <button class="btn btn-outline-primary" type="submit" (click)="sendUserName()">Search</button>
+
+        <form class="form-inline mr-5">
+          <input class="form-control mr-sm-2" type="search" required [formControl]="username" placeholder="Search" aria-label="Search" style = "width:30vw;">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="sendUserName()">Search</button>
         </form>
 
         <div *ngIf="isLogged ==true" class = "d-flex align-items-center">
-          <a class="nav-link mr-3">archie012</a>
+          <a class="nav-link mr-3">Anna Jey</a>
           <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(2).jpg" class="rounded-circle img-fluid mr-3" height='25' width='25'>
           <button class="btn btn-outline-primary" (click)="navToHome()" id="signInBtn" type="button">Log Out</button>
         </div>
@@ -61,7 +60,6 @@
             <button class="btn btn-outline-primary" (click)="navToLogin()" id="signInBtn" type="button">Log In</button>
         </div>
 
-        <button class="btn btn-outline-success" (click)="navToSignUp()" type="button">Sign Up</button>
       </div>
       <!-- Collapsible wrapper -->
     </div>

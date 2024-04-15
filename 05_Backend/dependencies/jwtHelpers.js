@@ -28,7 +28,7 @@ async function verifyJwt(req, res, next) {
 
     next();
   } catch (err) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Login is required" });
   }
 }
 

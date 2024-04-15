@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'http://localhost:3000/post/filter?postType=educational'; // Replace 'your-api-url' with your actual API URL
+  private apiUrl = 'https://only-credit-backend.vercel.app/post/filter?postType=educational'; // Replace 'your-api-url' with your actual API URL
 
   constructor(private http: HttpClient) { }
 

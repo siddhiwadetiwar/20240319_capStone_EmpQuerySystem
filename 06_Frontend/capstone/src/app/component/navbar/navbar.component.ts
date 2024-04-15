@@ -12,7 +12,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  username = new FormControl('');
+  username = new FormControl;
   isLogged!: boolean;
   constructor(private route: Router) {
     this.route.events.subscribe(value => {
@@ -28,13 +28,11 @@ export class NavbarComponent {
   @Output() emitUserName: EventEmitter<string> = new EventEmitter<string>();
 
   sendUserName() {
-    const inputValue = this.username.value;
-    if (inputValue && inputValue.trim().length > 0) {
-      console.log('Search query:', inputValue);
-      this.emitUserName.emit(inputValue);
+    if (this.username.valid) {
+      this.emitUserName.emit(this.username.value);
+
     }
   }
-  
 
   navToSignUp() {
     sessionStorage.clear();

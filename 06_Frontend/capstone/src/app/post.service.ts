@@ -8,7 +8,7 @@ import { Upvote } from './models/upvote';
   providedIn: 'root'
 })
 export class PostService {
-  private baseUrl = 'http://localhost:3000/';  // Replace with your actual API URL
+  private baseUrl = 'https://only-credit-backend.vercel.app/';  // Replace with your actual API URL
 
   constructor(private http: HttpClient) { }
 
@@ -52,6 +52,22 @@ export class PostService {
     );
   }
 
+  addPost(postObj: any) {
+    const url = `${this.baseUrl}post/addpost`
+    let authToken = sessionStorage.getItem('token')
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + authToken
+    });
+    return this.http.post(url, postObj, { headers: headers }).pipe(
+      catchError(error => {
+        this.displaySnackBar(error.error.message);
+        console.error('Error addPost', error);
+        throw new Error('Error addPost');
+      })
+    );;
+  }
+
   addComment(comment: any, postId: any): Observable<any> {
     const url = `${this.baseUrl}comment/addcomment/${postId}`
     let authToken = sessionStorage.getItem('token')
@@ -72,18 +88,25 @@ export class PostService {
     );;
   }
 
-  addPost(postObj: any) {
-    const url = `${this.baseUrl}post/addpost`
+  pinComment(commentId: any): Observable<any> {
+    const url = `${this.baseUrl}comment/pincomment/${commentId}`
     let authToken = sessionStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + authToken
     });
-    return this.http.post(url, postObj, { headers: headers }).pipe(
+    console.log(commentId);
+    console.log(url);
+    let commentObj = {
+      "commentId": commentId,
+      // "isPinned": isPinned
+    }
+    // Make HTTP request with headers
+    return this.http.post(url, commentObj, { headers: headers }).pipe(
       catchError(error => {
         this.displaySnackBar(error.error.message);
-        console.error('Error addPost', error);
-        throw new Error('Error addPost');
+        console.error('Error pinComment', error);
+        throw new Error('Error pinComment');
       })
     );;
   }

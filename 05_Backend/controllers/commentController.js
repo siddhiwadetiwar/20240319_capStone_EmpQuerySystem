@@ -17,28 +17,30 @@ const {
  *  @param {Object} res - request object
  */
 const pinComment = async (req, res) => {
+
     // Extracting userId from the authenticated user object
     const userId = req.user._id;
 
     // Extracting commentId from request parameters
     const { commentId } = req.params;
 
-
     try {
         // Check if the comment exists and is authored by the user
         //const comment = await Comment.findOne({ _id: commentId, userId });
         // Log the query being executed
-        console.log('Query:', { _id: commentId, userId });
+        // console.log('Query:', { _id: commentId, userId });
         const comment = await Comment.findOne({ _id: commentId, userId });
-        console.log('Comment:', comment);
+        // const user = await User.findOne({ _id : userId });
+        // user.pinned.push(commentId);
+        // await user.save();
+        // console.log('Comment:', comment);
 
-        console.log('Comment:', comment);
         if (!comment) {
             return res.status(404).json({ message: 'Comment not found' });
         }
 
         // Pin the comment by setting isPinned to true
-        comment.isPinned = true;
+        comment.isPinned == true ? comment.isPinned = false : comment.isPinned = true;
         await comment.save();
 
         return res.status(200).json({ message: 'Comment pinned successfully' });
@@ -47,7 +49,6 @@ const pinComment = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
-
 
 /** Controller for adding a comment to a post
  * @param {Object} req - request object
@@ -129,7 +130,7 @@ async function upvoteCommentAndGetCount(req, res) {
         // Find the comment by its ID
         const comment = await Comment.findById(commentId);
         if (!comment) {
-            return res.status(404).json({ message: 'Comment not found' });
+            return res.status(404).json({ message: 'Comment does not exist' });
         }
 
         // Check if the user has already upvoted this comment
@@ -166,7 +167,7 @@ async function downvoteCommentAndGetCount(req, res) {
         // Check if the comment exists
         const comment = await Comment.findById(commentId);
         if (!comment) {
-            return res.status(404).json({ message: 'Comment not found' });
+            return res.status(404).json({ message: 'Comment do not exist' });
         }
 
         //   // Check if the downvotedUsers array exists in the comment object

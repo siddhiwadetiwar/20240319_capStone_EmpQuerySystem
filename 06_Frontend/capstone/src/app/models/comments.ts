@@ -11,6 +11,7 @@ export class Comments {
     upvotedUsers!: any[];
     downvotedUsers!: any[];
     commentDateTime: any;
+    isPinned:any;
     userId!:User;
     username:any;
     userName:any;
