@@ -14,25 +14,7 @@
         <label><input type="radio" [(ngModel)]="selectedOption" value="personal" name="options"> Personal</label>
         <label><input type="radio" [(ngModel)]="selectedOption" value="entertainment" name="options"> Entertainment</label>
     </div>
-    <!-- <div class="rectangle-parent6">
-        <div class="frame-child18"></div>
-        <div class="vector-parent1">
-            <img class="frame-child19" loading="lazy" alt="" src="../../../assets/rectangle-4163.svg" />
-            <input class="add-a-comment" placeholder="what do you want to ask?" required="" [formControl]="postControl" type="text" />
-        </div>
-        <div class="edit-fill"></div>
-        <div class="frame-wrapper4">
-            <div class="subtract-parent">
-                <img class="subtract-icon" loading="lazy" alt="" src="../../../assets/subtract.svg" />
-                <button style="width: 100px;height: 50px;vertical-align: center;" (click)="addPost()">
-                    <div class="post-wrapper">
-                        <div class="post">Post</div>
-                    </div>
-                </button>
-            </div>
-        </div>
-
-    </div> -->
+    
 
     <ckeditor [editor]="Editor" [(ngModel)]="postMessage" data="<p>Hello, world!</p>"></ckeditor>
     <div class="button-container">

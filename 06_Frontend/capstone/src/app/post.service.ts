@@ -8,17 +8,28 @@ import { Upvote } from './models/upvote';
   providedIn: 'root'
 })
 export class PostService {
+
   private baseUrl = 'https://only-credit-backend.vercel.app/';  // Replace with your actual API URL
 
+  // Subject and Observable for sharing data across components
   constructor(private http: HttpClient) { }
 
   private dataSubject = new BehaviorSubject<any>(null);
   data$ = this.dataSubject.asObservable();
+
+  /**
+   * Method to send data to subscribers
+   * @param data The data to be sent to subscribers
+   */
   sendData(data: any) {
     this.dataSubject.next(data);
   }
 
-  getFilteredPosts(postType: string): Observable<any> {
+  /**
+   * Method to fetch filtered posts based on postType
+   * @param postType The type of posts to filter
+   */
+  getFilteredPosts(postType: string){
     const url = `${this.baseUrl}post/filter?postType=${postType}`;
     return this.http.get<any>(url).pipe(
       catchError(error => {
@@ -29,8 +40,11 @@ export class PostService {
     );
   }
 
-
-  getAllPosts(): Observable<any> {
+  /**
+   * Method to fetch all posts
+   * @returns An Observable with all posts
+   */
+  getAllPosts(){
     const url = `${this.baseUrl}post/getallpost`;
     return this.http.get<any>(url).pipe(
       catchError(error => {
@@ -41,7 +55,11 @@ export class PostService {
     );
   }
 
-  getAllComments(): Observable<any> {
+  /**
+   * Method to fetch all comments
+   * @returns An Observable with all comments
+   */
+  getAllComments(){
     const url = `${this.baseUrl}comment/getallcomment`;
     return this.http.get<any>(url).pipe(
       catchError(error => {
@@ -52,6 +70,10 @@ export class PostService {
     );
   }
 
+  /**
+   * Method to add a new post
+   * @param postObj The object containing post data
+   */
   addPost(postObj: any) {
     const url = `${this.baseUrl}post/addpost`
     let authToken = sessionStorage.getItem('token')
@@ -68,7 +90,12 @@ export class PostService {
     );;
   }
 
-  addComment(comment: any, postId: any): Observable<any> {
+  /**
+   * Method to add a new comment to a post
+   * @param comment The comment content
+   * @param postId The ID of the post to add the comment to
+   */
+  addComment(comment: any, postId: any){
     const url = `${this.baseUrl}comment/addcomment/${postId}`
     let authToken = sessionStorage.getItem('token')
     const headers = new HttpHeaders({
@@ -88,7 +115,12 @@ export class PostService {
     );;
   }
 
-  pinComment(commentId: any): Observable<any> {
+  /**
+   * Method to pin/unpin a comment
+   * @param commentId The ID of the comment to pin/unpin
+   * @returns An Observable after pinning/unpinning the comment
+   */
+  pinComment(commentId: any){
     const url = `${this.baseUrl}comment/pincomment/${commentId}`
     let authToken = sessionStorage.getItem('token')
     const headers = new HttpHeaders({
@@ -111,7 +143,12 @@ export class PostService {
     );;
   }
 
-  upVote(postId: any, upVote: Upvote): Observable<any> {
+  /**
+   * Method to upvote a post
+   * @param postId The ID of the post to upvote
+   * @param upVote An object containing upvote data
+   */
+  upVote(postId: any, upVote: Upvote){
     let authToken = sessionStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -127,7 +164,12 @@ export class PostService {
   }
 
 
-  downVote(postId: any, downVote: Upvote): Observable<any> {
+  /**
+   * Method to downvote a post
+   * @param postId The ID of the post to downvote
+   * @param downVote An object containing downvote data
+   */
+  downVote(postId: any, downVote: Upvote){
     let authToken = sessionStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -142,6 +184,10 @@ export class PostService {
     );;
   }
 
+  /**
+   * Method to filter posts by user
+   * @param userName The username to filter posts by
+   */
   filterPostByUser(userName:any){
     const url = `${this.baseUrl}post/searchuser/${userName}`;
     return this.http.get<any>(url).pipe(

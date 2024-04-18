@@ -18,10 +18,10 @@
                     <!-- Parent container for frame 21 -->
                     <div class="username-wrapper">
                         <!-- Wrapper for username -->
-                        <div class="username1">Username</div>
+                        <div class="username1">Email</div>
                         <!-- Username label -->
                     </div>
-                    <input class="frame-input" placeholder="Enter username" type="text" [(ngModel)]="login.email"
+                    <input class="frame-input" placeholder="Enter email" type="text" [(ngModel)]="login.email"
                         formControlName="email" />
                     <div
                         *ngIf="myForm.get('email')?.invalid && (myForm.get('email')?.dirty || myForm.get('email')?.touched)">

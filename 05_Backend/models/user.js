@@ -3,13 +3,7 @@ const mongoose = require("mongoose");
 
 // Define the schema for the Users model
 const userSchema = new mongoose.Schema({
-  // User ID (Primary Key)
-//   userId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     required: false,
-//     // Each userId must be unique
-//     unique: true, 
-//   },
+  
   // Username of the user
   username: {
     type: String,

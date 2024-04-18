@@ -7,8 +7,10 @@ const PostCollection = require("../models/postCollection");
 // Importing the User model
 const User = require('../models/user');
 
+// Importing mongoose for database operations
 const mongoose = require("mongoose");
 
+// Importing validators for post data validation
 const {
   postContentValidator,
   postTypeValidator,
@@ -18,10 +20,9 @@ const {
   usernameValidator,
 } = require('../dependencies/validators/post')
 
-
 /** Controller for adding a post
- * @param {Object} req - request object
- * @param {Object} res - request objec
+ * @param {Object} req - Request object containing post data
+ * @param {Object} res - Response object to send back the result
  */
 async function addPost(req, res) {
   // Extracting data from the request body
@@ -31,7 +32,7 @@ async function addPost(req, res) {
     images,
   } = req.body;
 
-  console.log(req);
+  
 
   // Creating a new post object
   const post = new PostCollection({
@@ -40,7 +41,7 @@ async function addPost(req, res) {
     images,
     userId: req.user._id,
   });
-  console.log(post);
+  
 
   try {
     // Validate the post content
@@ -57,6 +58,7 @@ async function addPost(req, res) {
     if (!imagesValidator(images)) {
       return res.status(400).json({ error: 'Invalid images array' });
     }
+
     // Saving the post to the database
     const savedPost = await post.save();
     return res.status(200).json({ post: savedPost });
@@ -66,13 +68,13 @@ async function addPost(req, res) {
   }
 }
 
-/** Comtroller for getting all posts
- * @param {Object} req - request object
- * @param {Object} res - request object
+/** Controller for getting all posts
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object to send back the result
  */
 async function getAllPosts(req, res) {
   try {
-    // Retrieve all posts from the database
+    // Retrieve all posts from the database, sorted by postDateTime descending
     const posts = await PostCollection.find().sort({ postDateTime: -1 }).populate("userId","username");
 
     return res.status(200).json({ posts });
@@ -82,39 +84,16 @@ async function getAllPosts(req, res) {
   }
 }
 
-// async function getAllPostsByUsername(req, res) {
-//   try {
-//     // Extract the username from the request parameters
-//     const { username } = req.params;
-
-//     // Find the user based on the username
-//     const user = await User.findOne({ username });
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Find all posts of the user using their userId
-//     const posts = await PostCollection.find({ userId: user._id });
-
-//     // Return the posts as a JSON response
-//     return res.status(200).json({ posts });
-//   } catch (error) {
-//     console.error('Error fetching posts by username:', error);
-//     return res.status(500).json({ message: 'Internal server error' });
-//   }
-// }
-
-/** Controller to search by username
- * @param {Object} req - request object
- * @param {Object} res - request object
+/** Controller to search posts by username
+ * @param {Object} req - Request object containing username
+ * @param {Object} res - Response object to send back the result
  */
 async function getAllPostsByUsername(req, res) {
   try {
-    // Extract username from the request body or query parameters
-    const { username } = req.params; // Or req.query, depending on how you're sending the username
-    console.log('Received username: ', username)
+    // Extract username from the request body 
+    const { username } = req.params; 
 
-    // Validate the username format if needed
+    // Validate the username format 
     if (!usernameValidator(username)) {
       return res.status(400).json({ message: 'Invalid username format' });
     }
@@ -129,6 +108,7 @@ async function getAllPostsByUsername(req, res) {
     // Find all posts of the user using their userId
     const postss = await PostCollection.find({ userId: user._id }).sort({ postDateTime: -1 });
 
+    // Transform posts data for response
     const posts = postss.map(post => ({
       postContent: post.postContent,
       postType: post.postType,
@@ -143,7 +123,6 @@ async function getAllPostsByUsername(req, res) {
       userName: user.username // Include the username here
     }));
 
-    console.log('User posts:', posts); 
     // Return the posts as a JSON response
     return res.status(200).json({ posts });
   } catch (error) {

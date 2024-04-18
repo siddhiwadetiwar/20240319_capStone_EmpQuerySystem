@@ -18,25 +18,25 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrl: './homepage-maincontent.component.css'
 })
 export class HomepageMaincontentComponent implements OnInit {
+  // Using CKEditor Classic build
   public Editor = ClassicEditor;
+  // Object to hold posts response
   postResponse: PostsResponse = new PostsResponse();
+  // Object to hold comments response
   commentResponse: CommentsResponse = new CommentsResponse();
   receivedData: any;
 
+  // Default selected option for post type
   selectedOption: string = "educational"; 
 
-  // @Output() childFunctionTriggered: EventEmitter<any> = new EventEmitter();
-
-  // triggerChildFunction() {
-  //   this.childFunctionTriggered.emit();
-  // }
-
+  // Reference to signInBtn element
   @ViewChild('signInBtn') myButton!: ElementRef;
   constructor(httpclient: HttpClient, private postService: PostService, private route: Router) {
 
   }
 
   ngOnInit(): void {
+    // Fetch all posts and format their postDateTime
     this.postService.getAllPosts().subscribe(res => {
       this.postResponse = res
       console.log(this.postResponse);
@@ -52,6 +52,7 @@ export class HomepageMaincontentComponent implements OnInit {
       })
     })
 
+    // Fetch all comments and format their commentDateTime
     this.postService.getAllComments().subscribe(res => {
       this.commentResponse = res;
       console.log(this.commentResponse.comments);
@@ -73,21 +74,26 @@ export class HomepageMaincontentComponent implements OnInit {
     }
   }
 
+  // FormControl for comment input
   comment = new FormControl();
 
+  // FormControl for post input
   postControl = new FormControl();
 
   postMessage: string = '';
   commentMessage: string = '';
 
+  // Method to handle radio button click event
   checkboxClicked(option: string) {
     this.selectedOption = option;
   }
 
+  // Method to add a new post
   addPost() {
     console.log(this.postMessage)
     let isAnyRadioSelected = this.selectedOption !== '';
     let isPostTyped = this.postMessage !== '';
+    // Validate post message and selected option
     if (isAnyRadioSelected) {
       if (isPostTyped) {
         let postObj = {
@@ -95,6 +101,7 @@ export class HomepageMaincontentComponent implements OnInit {
           "postType": this.selectedOption,
           "images": []
         }
+        // Call addPost method from PostService and reload the page
         this.postService.addPost(postObj).subscribe(data => {
           console.log(data)
           location.reload();
@@ -107,8 +114,17 @@ export class HomepageMaincontentComponent implements OnInit {
     }
   }
 
+
+  /**
+ * Fetches posts based on the specified post type.
+ * @param {string} postType - The type of posts to fetch 
+ * (e.g., "educational", "entertainment", "personal").
+ * Should match the postType field in the database.
+ * If not provided or invalid, defaults to fetching all posts.
+ */
   getPostbyType(postType: any) {
     console.log(postType);
+    // Call getFilteredPosts method from PostService
     this.postService.getFilteredPosts(postType).subscribe(data => {
       console.log(data)
       this.postResponse = data
@@ -124,10 +140,15 @@ export class HomepageMaincontentComponent implements OnInit {
     })
   }
 
-
+  /** Method to add a comment to a post
+  * @param postId - The ID of the post to which the comment is being added
+  */
   addComment(postId: any) {
+    // Check if the comment form is valid
     if (this.comment.valid) {
+      // Call the addComment method from the PostService
       this.postService.addComment(this.comment.value, postId).subscribe(res => {
+        // Display a success message and reload the page after adding the comment
         this.displaySnackBar("Comment added successfully");
         location.reload();
         console.log("comment is created!!!")
@@ -137,56 +158,83 @@ export class HomepageMaincontentComponent implements OnInit {
     }
   }
 
+  // Array to store dynamically created elements (e.g., pinned comments)
   dynamicElements: string[] = [];
 
+  /** Method to handle pinning a comment
+  * @param commentId - The ID of the comment to be pinned
+  */
   pressPin(commentId:any): void {
-    this.postService.pinComment(commentId).subscribe(res => {
-      
+      // Call the pinComment method from the PostService
+      this.postService.pinComment(commentId).subscribe(res => {
+      // Display a success message after pinning the comment
       this.displaySnackBar("Comment pinned successfully");
-
+      // Update the pinned status of the comment in the UI
       const commentIndex = this.commentResponse.comments.findIndex(c => c._id === commentId);
       if (commentIndex !== -1) {
         this.commentResponse.comments[commentIndex].isPinned = !this.commentResponse.comments[commentIndex].isPinned;
       }
-
-      const exsit = this.dynamicElements.findIndex(el => {return commentId===el} )
       
-      if (exsit === -1) {
+      // Manage the dynamicElements array based on pinning/unpinning
+      const exist = this.dynamicElements.findIndex(el => {return commentId===el} )
+      
+      if (exist === -1) {
       this.dynamicElements.push(commentId);
       
       }
       else{
-        this.dynamicElements.splice(exsit,1);
+        this.dynamicElements.splice(exist,1);
       }
       
     })
 
   }
   
+  /** Method to handle upvoting a post
+  * @param userId - The ID of the user performing the upvote
+  * @param postId - The ID of the post to be upvoted
+  */
   upVote(userid: any, postId: any) {
+    // Create the request object with the user ID
     let req = {
       "userId": userid
     }
+    // Call the upVote method from the PostService
     this.postService.upVote(postId, req).subscribe(data => {
+      // Reload the page after upvoting
       location.reload();
     })
   }
 
+  /** Method to handle downvoting a post
+  * @param userId - The ID of the user performing the downvote
+  * @param postId - The ID of the post to be downvoted
+  */
   downVote(userid: any, postId: any) {
+    // Create the request object with the user ID
     let req = {
       "userId": userid
     }
+    // Call the downVote method from the PostService
     this.postService.downVote(postId, req).subscribe(data => {
       console.log(data)
+      // Reload the page after downvoting
       location.reload();
     })
   }
 
   username = new FormControl();
 
+  
+  /** Method to fetch posts by username
+  * @param username - The username of the user whose posts are being fetched
+  */
   getPostsByUsername(username: any) {
+    // Call the filterPostByUser method from the PostService
     this.postService.filterPostByUser(username).subscribe(data => {
+      // Update postResponse with filtered posts
       this.postResponse=data;
+      // Format postDateTime for each post in the response
       this.postResponse.posts.forEach(data => {
         const date = new Date(data.postDateTime);
         // Get the month, day, and year
@@ -202,7 +250,9 @@ export class HomepageMaincontentComponent implements OnInit {
   }
 
 
-
+  /** Method to display a snackbar message
+  * @param msg - The message to be displayed in the snackbar
+  */
   displaySnackBar(msg: any) {
     const snackBar = document.getElementById("snackBar");
     if (snackBar != null) {

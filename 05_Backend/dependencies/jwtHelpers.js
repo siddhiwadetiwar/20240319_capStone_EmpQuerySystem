@@ -24,7 +24,7 @@ async function verifyJwt(req, res, next) {
     const decoded = await jwt.verify(token, secret);
     // Sets user (ID) in the request object
     req.user = decoded;
-    console.log(decoded);
+    
 
     next();
   } catch (err) {
@@ -32,7 +32,9 @@ async function verifyJwt(req, res, next) {
   }
 }
 
-/** helper function to get the user object from it's ID
+/** Helper function to get the user object from its ID
+ * @param {String} userId - User ID
+ * @returns {Object|Boolean} - User object if found, false if not found
  */
 async function getUserFromId(userId) {
   const User = await user.find({ _id: userId });

@@ -3,13 +3,7 @@ const mongoose = require("mongoose");
 
 // Define the schema for the Comment model
 const commentSchema = new mongoose.Schema({
-  // Comment ID (Primary Key)
-//   commentId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     required: true,
-//     // Each commentId must be unique
-//     unique: true, 
-//   },
+  
   // Post ID referencing the postCollection model
   postId: {
     type: mongoose.Schema.Types.ObjectId,

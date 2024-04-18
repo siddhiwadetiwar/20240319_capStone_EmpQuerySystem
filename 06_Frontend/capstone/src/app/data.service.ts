@@ -10,12 +10,17 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  fetchData(): Observable<any> {
+  
+  fetchData(){
     // Make HTTP GET request to fetch data from the API
-    const url = `${this.apiUrl}/post/filter`; // Replace 'endpoint' with the actual endpoint on your API
+    const url = `${this.apiUrl}/post/filter`; 
     return this.http.get(url);
   }
-  getFilteredData(filterType: string): Observable<any> {
+  /**
+   * Fetches filtered data from the API based on the filter type.
+   * @param filterType The type of filter to apply.
+   */
+  getFilteredData(filterType: string){
     const url = `${this.apiUrl}/filtered-endpoint?filterType=${filterType}`;
     return this.http.get(url);
   }
